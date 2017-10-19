@@ -11,6 +11,7 @@ import acr.browser.lightning.database.history.HistoryRepository
 import acr.browser.lightning.database.whitelist.AdBlockWhitelistDatabase
 import acr.browser.lightning.database.whitelist.AdBlockWhitelistRepository
 import acr.browser.lightning.ssl.SessionSslWarningPreferences
+import acr.browser.lightning.ssl.SessionSslWarningPreferencesPersisted
 import acr.browser.lightning.ssl.SslWarningPreferences
 import dagger.Binds
 import dagger.Module
@@ -37,6 +38,6 @@ abstract class LightningModule {
     abstract fun providesWhitelistModel(sessionWhitelistModel: SessionWhitelistModel): WhitelistModel
 
     @Binds
-    abstract fun providesSslWarningPreferences(sessionSslWarningPreferences: SessionSslWarningPreferences): SslWarningPreferences
+    abstract fun providesSslWarningPreferences(sessionSslWarningPreferences: SessionSslWarningPreferencesPersisted): SslWarningPreferences
 
 }

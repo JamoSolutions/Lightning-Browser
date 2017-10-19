@@ -5,12 +5,20 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import acr.browser.lightning.constant.Constants;
 import acr.browser.lightning.constant.Proxy;
 import acr.browser.lightning.search.engine.GoogleSearch;
+import acr.browser.lightning.ssl.SslWarningPreferences;
 import acr.browser.lightning.utils.FileUtils;
 
 @Singleton
@@ -67,6 +75,9 @@ public class PreferenceManager {
         static final String INITIAL_CHECK_FOR_I2P = "checkForI2P";
 
         static final String LEAK_CANARY = "leakCanary";
+
+        static final String SSL_WARNINGS_PERSISTED = "sslWarningPerisited";
+
     }
 
     public enum Suggestion {
@@ -508,5 +519,38 @@ public class PreferenceManager {
 
     public void setUseWideViewportEnabled(boolean enable) {
         putBoolean(Name.USE_WIDE_VIEWPORT, enable);
+    }
+
+    public void setSslWarningPersisted(HashMap<String, SslWarningPreferences.Behavior> warningPersisted) {
+        JSONObject toPersist = new JSONObject();
+        for (Map.Entry<String, SslWarningPreferences.Behavior> entry : warningPersisted.entrySet()) {
+            try {
+                toPersist.put(entry.getKey(), entry.getValue().name());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        putString(Name.SSL_WARNINGS_PERSISTED, toPersist.toString());
+    }
+
+    public HashMap<String, SslWarningPreferences.Behavior> getSslWarningPersisted(){
+
+        HashMap<String, SslWarningPreferences.Behavior> hash = new HashMap<String, SslWarningPreferences.Behavior>();
+
+        String jsonString = mPrefs.getString(Name.SSL_WARNINGS_PERSISTED, new JSONObject().toString());
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            Iterator<String> keysItr = jsonObject.keys();
+            while(keysItr.hasNext()) {
+                String k = keysItr.next();
+                String v = (String) jsonObject.get(k);
+                hash.put(k, SslWarningPreferences.Behavior.valueOf(v));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return hash;
     }
 }
