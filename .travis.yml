@@ -24,7 +24,7 @@ deploy:
   provider: releases
   api_key:
     secure: fy3Fym/8kzGBwqR07ErlR7bhfyxizgLvYVboMZrs7ZHepLydiait7s+ap18npaH9Ps3AH/qYBDlgzqnKlDTTLMZwRpHKfb3ER+D7OWo14Rbr3ypKK6/rzt2x2Vp8Hx9lYOj2WosZyqVfpKbEg1wT37h0jxMEPwqVSCCU8TRMnd2HfI4tDt7/IZxSgpTBqbVe3MUbUebCzgR8oWmxONJ9czRxkcW9CH0A4pouHefQoO6nhriOWvv0yrT6gs/7IecYyoGxr4S6QmJzcoLJKibl5LK/4hQguyF6bkz5ba8MqZfmLIMcWNoNmuQXJ/jpfoqyCsfb9L0ExS1xuMbC56v15WAG3nuKJeywsfmQQKWH8NOpeiyrmKSX1u26ef3tiH5uj+Iqu+JJY35zw1p9Jf4hhYR6FoLrV3JA63ZSZ264YGteXTFKCuBakp4HKszyRQGtCH+KnrQj3TZf8ls2yKtYBQti/TC+ZvZrudk4KUFSZd2u/B4wNEaYKWzb6QpghntzH7QbwCGEduKtDEMKN+NmW2bhTAPDRKE0X+KVgSH8fjr1hhTJlApkOHGlpVVfDhDsBVOnrl96COXzMGe1Ss3MjqZdA7X3PrHm4BWLXNeD146mPmfppG10UfKKtexQb3/ujicF6+KB9ncspLum+hPmxTrkPgUQI4ruEO1BPdUrgSU=
-  file: $HOME/app/build/outputs/apk/app-lightningLite-release.apk
+  file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-lightningLite-release.apk
   skip_cleanup: true
   on:
     repo: JamoSolutions/TestBrowser
