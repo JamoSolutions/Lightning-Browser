@@ -1,5 +1,4 @@
 # Android Studio
-*.jks
 .DS_Store
 /local.properties
 /.idea/workspace.xml

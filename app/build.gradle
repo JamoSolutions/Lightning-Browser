@@ -18,6 +18,15 @@ android {
         lightningLite.setRoot('src/LightningLite')
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'testbrowser'
+            keyPassword 'testbrowser'
+            storeFile file('release.jks')
+            storePassword 'testbrowser'
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -26,9 +35,10 @@ android {
         }
 
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles 'proguard-project.txt'
+            signingConfig signingConfigs.release
         }
     }
 
