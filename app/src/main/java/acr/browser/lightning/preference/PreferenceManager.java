@@ -65,6 +65,7 @@ public class PreferenceManager {
         static final String INITIAL_CHECK_FOR_I2P = "checkForI2P";
 
         static final String LEAK_CANARY = "leakCanary";
+        static final String SILENTLY_PROCEED_ON_SSL_ERRORS = "silentlyProceedOnSslErrors";
     }
 
     public enum Suggestion {
@@ -212,7 +213,7 @@ public class PreferenceManager {
     }
 
     public boolean getRestoreLostTabsEnabled() {
-        return mPrefs.getBoolean(Name.RESTORE_LOST_TABS, true);
+        return mPrefs.getBoolean(Name.RESTORE_LOST_TABS, false);
     }
 
     @Nullable
@@ -506,5 +507,13 @@ public class PreferenceManager {
 
     public void setUseWideViewportEnabled(boolean enable) {
         putBoolean(Name.USE_WIDE_VIEWPORT, enable);
+    }
+
+    public void setSilentlyProceedOnSslErrors(boolean silently) {
+        putBoolean(Name.SILENTLY_PROCEED_ON_SSL_ERRORS, silently);
+    }
+
+    public boolean getSilentlyProceedOnSslErrors() {
+        return mPrefs.getBoolean(Name.SILENTLY_PROCEED_ON_SSL_ERRORS, true);
     }
 }

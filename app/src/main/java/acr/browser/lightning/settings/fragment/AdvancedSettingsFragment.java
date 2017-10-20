@@ -28,9 +28,10 @@ public class AdvancedSettingsFragment extends LightningPreferenceFragment implem
     private static final String SETTINGS_RENDERINGMODE = "rendering_mode";
     private static final String SETTINGS_URLCONTENT = "url_contents";
     private static final String SETTINGS_TEXTENCODING = "text_encoding";
+    private static final String SETTINGS_SILENTLY_PROCEED_ON_SSL_ERRORS = "silently_proceed_on_ssl_errors";
 
     private Activity mActivity;
-    private CheckBoxPreference cbAllowPopups, cbenablecookies, cbcookiesInkognito, cbrestoreTabs;
+    private CheckBoxPreference cbAllowPopups, cbenablecookies, cbcookiesInkognito, cbrestoreTabs, cbSilentlyProceedOnSslErrors;
     private Preference renderingmode, urlcontent, textEncoding;
     private CharSequence[] mUrlOptions;
 
@@ -54,6 +55,7 @@ public class AdvancedSettingsFragment extends LightningPreferenceFragment implem
         cbenablecookies = (CheckBoxPreference) findPreference(SETTINGS_ENABLECOOKIES);
         cbcookiesInkognito = (CheckBoxPreference) findPreference(SETTINGS_COOKIESINKOGNITO);
         cbrestoreTabs = (CheckBoxPreference) findPreference(SETTINGS_RESTORETABS);
+        cbSilentlyProceedOnSslErrors = (CheckBoxPreference) findPreference(SETTINGS_SILENTLY_PROCEED_ON_SSL_ERRORS);
 
         renderingmode.setOnPreferenceClickListener(this);
         textEncoding.setOnPreferenceClickListener(this);
@@ -62,6 +64,7 @@ public class AdvancedSettingsFragment extends LightningPreferenceFragment implem
         cbenablecookies.setOnPreferenceChangeListener(this);
         cbcookiesInkognito.setOnPreferenceChangeListener(this);
         cbrestoreTabs.setOnPreferenceChangeListener(this);
+        cbSilentlyProceedOnSslErrors.setOnPreferenceChangeListener(this);
 
         switch (mPreferenceManager.getRenderingMode()) {
             case 0:
@@ -91,6 +94,8 @@ public class AdvancedSettingsFragment extends LightningPreferenceFragment implem
         cbenablecookies.setChecked(mPreferenceManager.getCookiesEnabled());
         cbcookiesInkognito.setChecked(mPreferenceManager.getIncognitoCookiesEnabled());
         cbrestoreTabs.setChecked(mPreferenceManager.getRestoreLostTabsEnabled());
+        cbSilentlyProceedOnSslErrors.setChecked(mPreferenceManager.getSilentlyProceedOnSslErrors());
+
     }
 
     @Override
@@ -129,6 +134,10 @@ public class AdvancedSettingsFragment extends LightningPreferenceFragment implem
             case SETTINGS_RESTORETABS:
                 mPreferenceManager.setRestoreLostTabsEnabled((Boolean) newValue);
                 cbrestoreTabs.setChecked((Boolean) newValue);
+                return true;
+            case SETTINGS_SILENTLY_PROCEED_ON_SSL_ERRORS:
+                mPreferenceManager.setSilentlyProceedOnSslErrors((Boolean) newValue);
+                cbSilentlyProceedOnSslErrors.setChecked((Boolean) newValue);
                 return true;
             default:
                 return false;

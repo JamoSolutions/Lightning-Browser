@@ -265,4 +265,5 @@
     <string name="search_engine_duckduckgo_lite">DuckDuckGo Lite</string>
     <string name="search_engine_baidu">Baidu</string>
     <string name="search_engine_yandex">Yandex</string>
+    <string name="silently_proceed_on_ssl_errors">Silently proceed on SSL errors</string>
 </resources>

@@ -17,7 +17,7 @@
             android:key="incognito_cookies"
             android:title="@string/incognito_cookies" />
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="restore_tabs"
             android:title="@string/restore" />
         <Preference
@@ -29,5 +29,9 @@
         <Preference
             android:key="url_contents"
             android:title="@string/url_contents" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="silently_proceed_on_ssl_errors"
+            android:title="@string/silently_proceed_on_ssl_errors" />
     </PreferenceCategory>
 </PreferenceScreen>

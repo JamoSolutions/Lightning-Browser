@@ -47,6 +47,7 @@ import acr.browser.lightning.constant.Constants;
 import acr.browser.lightning.controller.UIController;
 import acr.browser.lightning.dialog.BrowserDialog;
 import acr.browser.lightning.adblock.AdBlock;
+import acr.browser.lightning.preference.PreferenceManager;
 import acr.browser.lightning.utils.IntentUtils;
 import acr.browser.lightning.utils.Preconditions;
 import acr.browser.lightning.utils.ProxyUtils;
@@ -64,6 +65,8 @@ public class LightningWebClient extends WebViewClient {
 
     @Inject ProxyUtils mProxyUtils;
     @Inject AdBlock mAdBlock;
+    @Inject PreferenceManager mPreferences;
+
 
     LightningWebClient(@NonNull Activity activity, @NonNull LightningView lightningView) {
         BrowserApp.getAppComponent().inject(this);
@@ -225,6 +228,12 @@ public class LightningWebClient extends WebViewClient {
 
     @Override
     public void onReceivedSslError(WebView view, @NonNull final SslErrorHandler handler, @NonNull SslError error) {
+        //if the setting is true, we show nothing to the user, just continue
+        if (mPreferences.getSilentlyProceedOnSslErrors()) {
+            handler.proceed();
+            return;
+        }
+
         List<Integer> errorCodeMessageCodes = getAllSslErrorMessageCodes(error);
 
         StringBuilder stringBuilder = new StringBuilder();
