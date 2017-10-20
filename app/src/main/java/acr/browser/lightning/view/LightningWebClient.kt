@@ -193,6 +193,11 @@ class LightningWebClient(
     override fun onReceivedSslError(webView: WebView, handler: SslErrorHandler, error: SslError) {
         sslState = SSLState.Invalid(error)
 
+        //if the setting is true, we show nothing to the user, just continue
+        if (preferences.silentlyProceedOnSslErrors) {
+            return handler.proceed();
+        }
+
         when (sslWarningPreferences.recallBehaviorForDomain(webView.url)) {
             SslWarningPreferences.Behavior.PROCEED -> return handler.proceed()
             SslWarningPreferences.Behavior.CANCEL -> return handler.cancel()

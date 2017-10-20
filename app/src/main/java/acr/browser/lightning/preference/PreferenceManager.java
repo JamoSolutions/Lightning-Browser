@@ -77,6 +77,7 @@ public class PreferenceManager {
         static final String LEAK_CANARY = "leakCanary";
 
         static final String SSL_WARNINGS_PERSISTED = "sslWarningPerisited";
+        static final String SILENTLY_PROCEED_ON_SSL_ERRORS = "silentlyProceedOnSslErrors";
 
     }
 
@@ -225,7 +226,7 @@ public class PreferenceManager {
     }
 
     public boolean getRestoreLostTabsEnabled() {
-        return mPrefs.getBoolean(Name.RESTORE_LOST_TABS, true);
+        return mPrefs.getBoolean(Name.RESTORE_LOST_TABS, false);
     }
 
     @Nullable
@@ -552,5 +553,13 @@ public class PreferenceManager {
         }
 
         return hash;
+    }
+
+    public void setSilentlyProceedOnSslErrors(boolean silently) {
+        putBoolean(Name.SILENTLY_PROCEED_ON_SSL_ERRORS, silently);
+    }
+
+    public boolean getSilentlyProceedOnSslErrors() {
+        return mPrefs.getBoolean(Name.SILENTLY_PROCEED_ON_SSL_ERRORS, true);
     }
 }
